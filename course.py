@@ -7,7 +7,6 @@ class Course:
 
     def __init__(self, name):
         self.name = name
-        # self.course_id = course_id
         self.conn = sqlite3.connect('student.db')
         self.curs = self.conn.cursor()
 
