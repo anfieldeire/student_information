@@ -8,6 +8,8 @@ UPDATE_STUDENT = "UPDATE STUDENT set name=(?), home_address=(?) WHERE student_id
 
 CREATE_COURSE = "INSERT into COURSES (name) VALUES (?)"
 
+GET_COURSE = "SELECT name, course_id from COURSES WHERE course_id=(?)"
+
 UPDATE_COURSE = "UPDATE COURSES set name=(?) WHERE course_id=(?)"
 
 CREATE_MARK = "INSERT into MARKS (course_id, course_name, student_id, student_name, mark, year) VALUES (?,?,?,?,?,?)"
