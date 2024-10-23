@@ -2,40 +2,33 @@ import sqlite3
 import datetime
 from sql import *
 
-#conn = sqlite3.connect("C:\\Users\\hassy\\PycharmProjects\\student\\pythonProject\\.venv\\Scripts\\student.db")
 
 # conn = sqlite3.connect('student.db', detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
-# print("Connected")
-# curs = conn.cursor()
-# conn = sqlite3.connect('student.db')
-# curs = conn.cursor()
 
 class Student:
 
     def __init__(self, name, home_address, dob):
+        self.conn = sqlite3.connect('student.db')
+        self.curs = self.conn.cursor()
+
         self.name = name
         self.home_address = home_address
         self.dob = dob
-        self.conn = sqlite3.connect('student.db')
-        self.curs = self.conn.cursor()
 
     def create_student(self, name, home_address, dob):
         """ Insert student record into dob. student_id will be generated automatically """
 
-        with conn:
-            result = curs.execute(CREATE_STUDENT, (name, home_address, dob))
-            print(f"Student record created. Student id: {result.lastrowid}")
+        result = self.curs.execute(CREATE_STUDENT, (name, home_address, dob))
+        self.conn.commit()
+        print(f"Student record created. Student id: {result.lastrowid}")
 
-    def get_student(self, student_id):
-        """ Query student table for student information based on the student id provided """
 
-        result = self.curs.execute(GET_STUDENT, student_id)
-        print(f" Student Information listed here:  {list(result)}")
+
 
     def update_student(self, name, home_address, student_id):
         """ Update name and or address for students """
-        # with conn:
-        result = self.curs.execute(UPDATE_STUDENT, (name, home_address, student_id))
+
+        self.curs.execute(UPDATE_STUDENT, (name, home_address, student_id))
         rowcount = self.curs.rowcount
         self.conn.commit()
         if rowcount == 1:
@@ -43,12 +36,29 @@ class Student:
         else:
             print("Student record has not been updated. Please check the data and student id are correct")
 
+def get_student(student_id):
+    """ Query student table for student information based on the student id provided """
+
+    conn = sqlite3.connect('student.db')
+    curs = conn.cursor()
+
+    result = curs.execute(GET_STUDENT, (student_id, )).fetchone()
+    # print(result)
+    student_name = result[0]
+    # print(student_name)
+    # print(f" Student Information listed here:  {list(result)}")
+    # print(type(student_name))
+    # print(type(result[1]))
+
+    return student_name
+
 
 if __name__ == "__main__":
 
-    stu = Student("James Riley", "21 Main Street, Newry", "1980-01-01")
-    stu.get_student("1")
-    stu.update_student("Frank Riley", "17 Main Street Newry", 1)
+    stu = Student("James Tobey", "21 Main Street, Newry", "1980-01-01")
+    # stu.create_student("Paul McStay", "22 Main Street, Newry", "1960-01-01")
+    # stu.update_student("Frank Riley", "17 Main Street Newry", 1)
+    get_student(2)
 
 
 
