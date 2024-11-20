@@ -16,4 +16,5 @@ CREATE_MARK = "INSERT into MARKS (course_id, course_name, student_id, student_na
 
 GET_MARKS = "SELECT course_name, mark from MARKS WHERE course_id = (?) AND student_id = (?)"
 
-CREATE_DEGREE = "INSERT into DEGREE (degree_name, student_id, student_name, overall_mark, graduation_year, overall_grade) VALUES (?,?,?,?,?,?)"
+CREATE_DEGREE = ("""INSERT into DEGREE_CLASS (degree_id, degree_name, student_id, student_name, overall_mark, graduation_year, overall_grade)
+VALUES (?,?,?,?,?,?,?)""")
