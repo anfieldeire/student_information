@@ -34,17 +34,21 @@ class Degree:
         """ Create a degree table with degree name and student information """
 
         student_name = Student.get_student(student_id)
-        overall_grade = self.set_grade(overall_mark)
+        if student_name is None:
+            print("Error")
+            return
+        else:
+            overall_grade = self.set_grade(overall_mark)
 
-        print("in create degree")
-        print(f"Grade: {overall_grade}")
-        print(f"Name: {student_name}")
-        print({degree_id}, {degree_name}, {student_id}, {student_name}, {overall_mark}, {graduation_year},
-        {overall_grade})
-        self.curs.execute(CREATE_DEGREE, (degree_id, degree_name, student_id, student_name, overall_mark, graduation_year,
-                                          overall_grade))
+            print("in create degree")
+            print(f"Grade: {overall_grade}")
+            print(f"Name: {student_name}")
+            print({degree_id}, {degree_name}, {student_id}, {student_name}, {overall_mark}, {graduation_year},
+            {overall_grade})
+            self.curs.execute(CREATE_DEGREE, (degree_id, degree_name, student_id, student_name, overall_mark, graduation_year,
+                                              overall_grade))
 
-        print("Degree has been created")
+            print("Degree has been created")
         self.conn.commit()
 
 
@@ -52,8 +56,9 @@ class Degree:
 
 if __name__ == "__main__":
 
-    d1 = Degree(3, "Bsc Business & Computing", 2,  60, "1992")
-    d1.create_degree(3, "Bsc Business & Computing", 2, 60, "1992")
-
+    # d1 = Degree(3, "Bsc Business & Computing", 2,  60, "1992")
+    # d1.create_degree(3, "Bsc Business & Computing", 2, 60, "1992")
+    d2 = Degree(7, "TEST", 19,  60, "1992")
+    d2.create_degree(7, "TEST", 19, 60, "1992")
 
 

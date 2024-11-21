@@ -40,22 +40,25 @@ class Student:
         curs = conn.cursor()
 
         result = curs.execute(GET_STUDENT, (student_id, )).fetchone()
-        # print(result)
-        student_name = result[0]
+        rowcount = curs.rowcount
+        if rowcount < 1:
+            print("Student not found")
+        else:
+            student_name = result[0]
         # print(student_name)
         # print(f" Student Information listed here:  {list(result)}")
         # print(type(student_name))
         # print(type(result[1]))
 
-        return student_name
+            return student_name
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    stu = Student("James Tobey", "21 Main Street, Newry", "1980-01-01")
-    # stu.create_student("Paul McStay", "22 Main Street, Newry", "1960-01-01")
-    # stu.update_student("Frank Riley", "17 Main Street Newry", 1)
-    get_student(2)
+    # stu = Student("James Tobey", "21 Main Street, Newry", "1980-01-01")
+    # # stu.create_student("Paul McStay", "22 Main Street, Newry", "1960-01-01")
+    # # stu.update_student("Frank Riley", "17 Main Street Newry", 1)
+    # get_student(2)
 
 
 
